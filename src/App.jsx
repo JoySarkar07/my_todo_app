@@ -15,7 +15,7 @@ function App() {
 
   useEffect(() => {
     let todoString = localStorage.getItem("todos")
-    if(todoString.length>2){
+    if(todoString!=null && todoString.length>2){
       let todos = JSON.parse(todoString)
       setTodos(todos)
     }
@@ -27,7 +27,7 @@ function App() {
   
   
 
-  const saveTodos = (params)=>{
+  const saveTodos = ()=>{
     localStorage.setItem("todos",JSON.stringify(todos));
   }
 
@@ -98,7 +98,7 @@ function App() {
       </div>
       <div className="container bg-purple-200 rounded-md m-auto h-[calc(100vh-270px)] overflow-auto p-5 todos ">
           {todos.length===0 && <div className="text-xl font-bold m-10">No todos to Display</div>}
-          {todos.map(todo=>{
+          {todos.length!==0 && todos.map(todo=>{
             return(showAll || !todo.isCompleted)&& <div key={todo.id} className="todo bg-purple-400 flex justify-between p-5 rounded-md mb-2">
               <div className="flex gap-5 justify-center">
               <input className="w-5" type="checkbox" name="complete" id={todo.id} checked={todo.isCompleted} onChange={onStatusChange}/>
